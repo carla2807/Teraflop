@@ -1,0 +1,123 @@
+<div class="wrapper">
+  <app-sidebar style="background: white !important"></app-sidebar>>
+  <div class="main">
+    <main class="content">
+      <div class="container-fluid">
+        <div class="header">
+          <h1 class="header-title">USUARIOS</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard']">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/usuarios']">Usuarios</a>
+              </li>
+              <li class="breadcrumb-item"><a>Registrar usuarios</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-12" *ngIf="success_message">
+            <div class="alert alert-info alert-dismissible" role="alert">
+              <div class="alert-message">
+                {{ success_message }}
+              </div>
+
+              <button
+                type="button"
+                class="close"
+                (click)="success_alert()"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 col-xl-12">
+            <form #usuarioForm="ngForm" (ngSubmit)="onSubmit(usuarioForm)">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Listado de usuarios</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Nombre </b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #nombre="ngModel"
+                          name="nombre"
+                          [(ngModel)]="usuarios.nombre"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Apellido</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #apellido="ngModel"
+                          name="apellido"
+                          [(ngModel)]="usuarios.apellido"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Email</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #email="ngModel"
+                          name="email"
+                          [(ngModel)]="usuarios.email"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Password</b></label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          #password="ngModel"
+                          name="password"
+                          [(ngModel)]="usuarios.password"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Rol</b></label>
+                        <select
+                          class="form-control"
+                          #role="ngModel"
+                          name="role"
+                          [(ngModel)]="usuarios.role"
+                        >
+                          <option value="" disabled>SELLECCIONAR</option>
+                          <option value="ADMIN">Administrador</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-success" type="submit">
+                    Registrar usuario
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

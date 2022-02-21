@@ -1,0 +1,174 @@
+<div class="wrapper">
+  <app-sidebar style="background: white !important"></app-sidebar>>
+  <div class="main">
+    <main class="content">
+      <div class="container-fluid">
+        <div class="header">
+          <h1 class="header-title">CLIENTES</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard']">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/clientes']">Clientes</a>
+              </li>
+              <li class="breadcrumb-item"><a>Editar clientes</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-12" *ngIf="error_message">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <div class="alert-message">
+                {{ error_message }}
+              </div>
+
+              <button
+                type="button"
+                (click)="error_alert()"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 col-lg-12" *ngIf="success_message">
+            <div class="alert alert-info alert-dismissible" role="alert">
+              <div class="alert-message">
+                {{ success_message }}
+              </div>
+
+              <button
+                type="button"
+                class="close"
+                (click)="success_alert()"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 col-xl-12">
+            <form #clienteForm="ngForm" (ngSubmit)="onSubmit(clienteForm)">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Datos de clientes</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Nombre </b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #nombre="ngModel"
+                          name="nombre"
+                          [(ngModel)]="cliente.nombre"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Apellido</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #apellido="ngModel"
+                          name="apellido"
+                          [(ngModel)]="cliente.apellido"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Email</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #email="ngModel"
+                          name="email"
+                          [(ngModel)]="cliente.email"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Direccion</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #direccion="ngModel"
+                          name="direccion"
+                          [(ngModel)]="cliente.direccion"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Telefono</b></label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          #telefono="ngModel"
+                          name="telefono"
+                          [(ngModel)]="cliente.telefono"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Ciudad</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #ciudad="ngModel"
+                          name="ciudad"
+                          [(ngModel)]="cliente.ciudad"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Codigo Postal</b></label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          #codigopostal="ngModel"
+                          name="codigopostal"
+                          [(ngModel)]="cliente.codigopostal"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label><b>Pais</b></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          #pais="ngModel"
+                          name="pais"
+                          [(ngModel)]="cliente.pais"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-success" type="submit">
+                    Actualizar cliente
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

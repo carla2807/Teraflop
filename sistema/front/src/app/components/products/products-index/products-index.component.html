@@ -1,0 +1,442 @@
+<div class="wrapper">
+  <app-sidebar style="background: white !important"></app-sidebar>
+  <div class="main">
+    <main class="content">
+      <div class="container-fluid">
+        <div class="header">
+          <h1 class="header-title">PRODUCTOS</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard']">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item"><a>Productos</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-xl-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h5 class="card-title">Filtro de productos</h5>
+                    <form #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+                      <div
+                        class="input-group date"
+                        id="datetimepicker-minimum"
+                        data-target-input="nearest"
+                      >
+                        <input
+                          type="text"
+                          class="form-control datetimepicker-input"
+                          #filtro="ngModel"
+                          name="filtro"
+                          [(ngModel)]="filtroText"
+                        />
+                        <div class="input-group-append">
+                          <button type="submit" class="input-group-text">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!--productos/categorias-->
+                  <div class="col-lg-6">
+                    <h5 class="card-title">
+                      - Opciones<br />
+                      de productos<br />
+                      categorias
+                    </h5>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn mb-1 btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Opciones
+                      </button>
+                      <div class="dropdown-menu">
+                        <a
+                          class="dropdown-item"
+                          [routerLink]="['/products/registrar']"
+                          >Registrar producto</a
+                        >
+                        <a
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#modal-data-categoria"
+                          >Ver categorias</a
+                        >
+                        <a
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#modal-save-categoria"
+                          >Registrar Categoria</a
+                        >
+                      </div>
+                    </div>
+                    <!--productos/proveedores-->
+                    <h5 class="card-title">
+                      - Opciones<br />
+                      de productos<br />
+                      proveedores
+                    </h5>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn mb-1 btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Opciones
+                      </button>
+                      <div class="dropdown-menu">
+                        <a
+                          class="dropdown-item"
+                          [routerLink]="['/products/registrar']"
+                          >Registrar producto</a
+                        >
+                        <a
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#modal-data-proveedor"
+                          >Ver proveedores</a
+                        >
+                        <a
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#modal-save-proveedor"
+                          >Registrar Proveedor</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2">
+                    <div class="btn-group">
+                      <div
+                        class="dropdown-menu"
+                        x-placement="bottom-start"
+                        style="
+                          position: absolute;
+                          will-change: transform;
+                          top: 0px;
+                          left: 0px;
+                          transform: translate3d(0px, 31px, 0px);
+                        "
+                      >
+                        <a class="dropdown-item" href="#">Registrar producto</a>
+                        <a
+                          class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#modal-data-categoria"
+                          >Ver categorias</a
+                        >
+                        <a class="dropdown-item">Registrar Categoria</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-striped table-hover">
+                <!--Cabecera tabla-->
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Stock</th>
+                    <!-- <th>Proveedor</th>
+                    <th>Categoria</th> -->
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody
+                  *ngFor="
+                    let item of products
+                      | paginate: { itemsPerPage: 10, currentPage: p }
+                  "
+                >
+                  <td>
+                    <img
+                      [src]="url + 'producto/img/' + item.imagen"
+                      width="48"
+                      height="48"
+                      class="rounded-circle mr-2"
+                      alt="Avatar"
+                    />
+                  </td>
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.descripcion }}</td>
+                  <td><b>$</b>{{ item.precio }}</td>
+                  <td>{{ item.marca }}</td>
+                  <td>{{ item.modelo }}</td>
+                  <td>{{ item.stock }}</td>
+
+                  <!--<td>{{ item.nitproveedor }}</td>-->
+                  <!--- <td>{{ item.nitcategoria }}</td>-->
+                  <td>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn mb-1 btn-secondary dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-cog"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a
+                          class="dropdown-item"
+                          [routerLink]="['/products/editar/', item._id]"
+                          >Editar registro</a
+                        >
+
+                        <a class="dropdown-item" (click)="eliminar(item._id)"
+                          >Eliminar registro</a
+                        >
+                        <!----<a class="dropdown-item" data-toggle="modal" (click)="get_id(item._id)" [attr.data-target]="'#modal-stock-'+idx">Aumentar Stock</a> -->
+                      </div>
+                    </div>
+                  </td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+        <!--MODAL AGREGAR CATEGORIA-->
+        <div
+          class="modal fade"
+          id="modal-save-categoria"
+          tabindex="-1"
+          role="dialog"
+          style="display: none"
+          aria-hidden="true"
+        >
+          <form #categoriaForm="ngForm" (ngSubmit)="save_cat(categoriaForm)">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Registrar Categoria</h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body m-3">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre de la categoria"
+                      #nombre_cat="ngModel"
+                      name="nombre_cat"
+                      [(ngModel)]="nombre_catText"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      class="form-control"
+                      placeholder="Breve descripcion"
+                      #descripcion_cat="ngModel"
+                      name="descripcion_cat"
+                      [(ngModel)]="descripcion_catText"
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Registrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!--MODAL LISTAR CATEGORIA-->
+        <div
+          class="modal fade"
+          id="modal-data-categoria"
+          tabindex="-1"
+          role="dialog"
+          style="display: none"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollablea"
+            role="document"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Listado de categorias</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body m-3">
+                <table class="table table-striped table-hover table-sm">
+                  <thead>
+                    <th>Nombre</th>
+                  </thead>
+                  <tbody *ngFor="let item of categorias">
+                    <td>{{ item.nombre }}</td>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--MODAL AGREGAR PROVEEDOR-->
+        <div
+          class="modal fade"
+          id="modal-save-proveedor"
+          tabindex="-1"
+          role="dialog"
+          style="display: none"
+          aria-hidden="true"
+        >
+          <form #proveedorForm="ngForm" (ngSubmit)="save_prov(proveedorForm)">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Registrar Proveedor</h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body m-3">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre del proveedor"
+                      #nombre_prov="ngModel"
+                      name="nombre_prov"
+                      [(ngModel)]="nombre_provText"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      class="form-control"
+                      placeholder="Ubicacion"
+                      #direccion_prov="ngModel"
+                      name="direccion_prov"
+                      [(ngModel)]="direccion_provText"
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Registrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!--MODAL LISTAR PROVEEDORES-->
+        <div
+          class="modal fade"
+          id="modal-data-proveedor"
+          tabindex="-1"
+          role="dialog"
+          style="display: none"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollablea"
+            role="document"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Listado de proveedores</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body m-3">
+                <table class="table table-striped table-hover table-sm">
+                  <thead>
+                    <th>Nombre</th>
+                  </thead>
+                  <tbody *ngFor="let item of proveedores">
+                    <td>{{ item.nombre }}</td>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
