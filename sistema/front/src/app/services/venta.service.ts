@@ -25,4 +25,23 @@ export class VentaService {
       headers: headers,
     });
   }
+  save_data(data: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(this.url + 'venta/registrar', data, {
+      headers: headers,
+    });
+  }
+  cambiar_estado(data: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(this.url + 'venta/cambiarestado', data, {
+      headers: headers,
+    });
+  }
+
+  delete_venta(id: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.delete(this.url + 'venta/eliminar/' + id, {
+      headers: headers,
+    });
+  }
 }

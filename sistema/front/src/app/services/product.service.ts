@@ -36,10 +36,14 @@ export class ProductService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'proveedores', { headers: headers });
   }
+  get_marcas(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'marcas', { headers: headers });
+  }
   //Metodo para insertar
   insert_producto(data: any) {
     const fd = new FormData();
-    fd.append('nombre', data.nombre);
+    fd.append('titulo', data.titulo);
     fd.append('descripcion', data.descripcion);
     fd.append('imagen', data.imagen);
     fd.append('marca', data.marca);
@@ -54,7 +58,7 @@ export class ProductService {
   //Metodo para editar
   edit_producto(data: any) {
     const fd = new FormData();
-    fd.append('nombre', data.nombre);
+    fd.append('titulo', data.titulo);
     fd.append('descripcion', data.descripcion);
     fd.append('imagen', data.imagen);
     fd.append('marca', data.marca);
@@ -86,6 +90,19 @@ export class ProductService {
   insert_proveedor(data: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(this.url + '/proveedor/registrar', data, {
+      headers: headers,
+    });
+  }
+  insert_marca(data: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(this.url + '/marca/registrar', data, {
+      headers: headers,
+    });
+  }
+
+  stock_producto(data: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(this.url + 'producto/stock/' + data._id, data, {
       headers: headers,
     });
   }

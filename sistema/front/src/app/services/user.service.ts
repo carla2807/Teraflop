@@ -44,11 +44,13 @@ export class UserService {
       this.identity = null;
     }
 
-    return this.identity;
+    return JSON.parse(this.identity);
   }
-  get_users(): Observable<any> {
+  get_users(filtro: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(this.url + 'usuarios', { headers: headers });
+    return this._http.get(this.url + 'usuarios' + filtro, {
+      headers: headers,
+    });
   }
 
   insert_usuario(data: any): Observable<any> {
@@ -65,6 +67,13 @@ export class UserService {
   update_usuario(data: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.put(this.url + 'user/editar/' + data._id, data, {
+      headers: headers,
+    });
+  }
+
+  delete_usuario(id: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.delete(this.url + 'user/eliminar/' + id, {
       headers: headers,
     });
   }
