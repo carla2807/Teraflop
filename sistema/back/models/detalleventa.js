@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 
 const DetalleVentaSchema = Schema({
   cantidad: Number,
-  precio: Number,
-
   idproducto: { type: Schema.ObjectId, ref: 'product' },
   venta: { type: Schema.ObjectId, ref: 'venta' },
 });
