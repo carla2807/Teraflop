@@ -8,5 +8,6 @@ api.get('/ventas', SaleController.listar);
 api.get('/detalle/:id', SaleController.detalle_venta);
 api.get('/venta/:id', SaleController.obtener_datos);
 api.delete('/venta/eliminar/:id', SaleController.eliminar_venta);
+api.post('/venta/cambiarestado', SaleController.cambiar_estado);
 
 module.exports = api;

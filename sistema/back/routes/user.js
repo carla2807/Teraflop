@@ -10,4 +10,5 @@ api.post('/login', userController.login);
 api.get('/usuarios', userController.listar);
 api.put('/user/editar/:id', userController.editar);
 api.get('/user/:id', userController.get_usuario);
+api.delete('/user/eliminar/:id', userController.eliminar);
 module.exports = api;

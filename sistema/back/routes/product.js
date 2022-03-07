@@ -12,7 +12,7 @@ api.get('/producto/:id', productController.obtener_producto);
 api.put('/producto/editar/:id/:img', path, productController.editar_producto);
 api.put('/producto/stock/:id', productController.actualizar_stock);
 api.delete('/producto/eliminar/:id', productController.eliminar_producto);
-api.get('/productos/:nombre?', productController.listar_producto);
+api.get('/productos/:titulo?', productController.listar_producto);
 api.get('/producto/img/:img', productController.obtener_img);
 
 module.exports = api;
