@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,11 +12,15 @@ export class UserEditComponent implements OnInit {
   public user: any;
   public passwordText: any;
   public success_message: any;
+  public identity: any;
 
   constructor(
     private _route: ActivatedRoute,
-    private _userService: UserService
-  ) {}
+    private _userService: UserService,
+    private _router: Router
+  ) {
+    this.identity = _userService.getIdentity();
+  }
   success_alert() {
     this.success_message = '';
   }
@@ -40,15 +44,20 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe((params) => {
-      this.id = params['id'];
-      console.log(this.id);
-      this._userService.get_user(this.id).subscribe(
-        (response) => {
-          this.user = response.user;
-        },
-        (error) => {}
-      );
-    });
+    console.log(this.identity);
+    if (this.identity.role === 'ADMIN') {
+      this._route.params.subscribe((params) => {
+        this.id = params['id'];
+        console.log(this.id);
+        this._userService.get_user(this.id).subscribe(
+          (response) => {
+            this.user = response.user;
+          },
+          (error) => {}
+        );
+      });
+    } else {
+      this._router.navigate(['dashboard']); //Si no es ADMIN lo redirige
+    }
   }
 }
