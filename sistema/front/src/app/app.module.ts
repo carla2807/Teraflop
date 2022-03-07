@@ -25,6 +25,7 @@ import { VentaCreateComponent } from './components/ventas/venta-create/venta-cre
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReporteComponent } from './components/reportes/reporte/reporte.component';
+import { VentaDetalleComponent } from './components/ventas/venta-detalle/venta-detalle.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ReporteComponent } from './components/reportes/reporte/reporte.componen
     VentaIndexComponent,
     VentaCreateComponent,
     ReporteComponent,
+    VentaDetalleComponent,
   ],
   imports: [
     RouterModule,

@@ -15,6 +15,7 @@ import { UserEditComponent } from './components/users/user-edit/user-edit.compon
 import { VentaIndexComponent } from './components/ventas/venta-index/venta-index.component';
 import { VentaCreateComponent } from './components/ventas/venta-create/venta-create.component';
 import { ReporteComponent } from './components/reportes/reporte/reporte.component';
+import { VentaDetalleComponent } from './components/ventas/venta-detalle/venta-detalle.component';
 
 //Aca van las rutas
 //primer path vacio porque es la raiz
@@ -68,9 +69,14 @@ const appRoute: Routes = [
     component: VentaIndexComponent,
   },
   {
-    path: 'ventas/:id',
+    path: 'venta/registrar',
     component: VentaCreateComponent,
   },
+  {
+    path: 'venta/:id',
+    component: VentaDetalleComponent,
+  },
+
   {
     path: 'reportes',
     component: ReporteComponent,
