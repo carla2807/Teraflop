@@ -99,20 +99,6 @@
                     </div>
                     <div class="col-lg-3">
                       <div class="form-group">
-                        <label class="form-label">Marca</label>
-                        <input
-                          type="string"
-                          class="form-control"
-                          placeholder="Ingrese marca"
-                          #precio_venta="ngModel"
-                          name="marca"
-                          [(ngModel)]="product.marca"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
                         <label class="form-label">Modelo</label>
                         <input
                           type="string"
@@ -125,20 +111,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-lg-2">
-                      <div class="form-group">
-                        <label class="form-label">Stock</label>
-                        <input
-                          type="number"
-                          required
-                          class="form-control"
-                          placeholder="0"
-                          #stock="ngModel"
-                          name="stock"
-                          [(ngModel)]="product.stock"
-                        />
-                      </div>
-                    </div>
+
                     <div class="col-lg-3">
                       <div class="form-group">
                         <label class="form-label">Precio </label>
@@ -169,6 +142,27 @@
                           <option
                             value="{{ item._id }}"
                             *ngFor="let item of categorias"
+                          >
+                            {{ item.nombre }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-label">Marca</label>
+                        <select
+                          class="form-control"
+                          #nombre="ngModel"
+                          required
+                          name="marca"
+                          [(ngModel)]="product.marca"
+                        >
+                          <option value="" disabled>SELECCIONAR</option>
+                          <option
+                            value="{{ item._id }}"
+                            *ngFor="let item of marcas"
                           >
                             {{ item.nombre }}
                           </option>

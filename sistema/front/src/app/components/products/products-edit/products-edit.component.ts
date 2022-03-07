@@ -18,6 +18,7 @@ export class ProductsEditComponent implements OnInit {
   public imgSelect: String | ArrayBuffer | null;
   public categorias: any;
   public proveedores: any;
+  public marcas: any;
   public stock: any;
   public url;
   public success_message: any;
@@ -46,9 +47,19 @@ export class ProductsEditComponent implements OnInit {
               console.log(error);
             }
           );
+
           this._productService.get_proveedores().subscribe(
             (response) => {
               this.proveedores = response.providers;
+              console.log(response);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+          this._productService.get_marcas().subscribe(
+            (response) => {
+              this.marcas = response.marcas;
               console.log(response);
             },
             (error) => {
@@ -72,13 +83,12 @@ export class ProductsEditComponent implements OnInit {
       this._productService
         .edit_producto({
           _id: this.id,
-          nombre: productoForm.value.nombre,
+          titulo: productoForm.value.titulo,
           descripcion: productoForm.value.descripcion,
           imagen: this.file,
           img_name: this.product.imagen,
           marca: productoForm.value.marca,
           modelo: productoForm.value.modelo,
-          stock: productoForm.value.stock,
           precio: productoForm.value.precio,
           nitcategoria: productoForm.value.nitcategoria,
           nitproveedor: productoForm.value.nitproveedor,

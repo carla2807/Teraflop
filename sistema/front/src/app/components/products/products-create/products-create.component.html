@@ -18,7 +18,7 @@
               <li class="breadcrumb-item">
                 <a [routerLink]="['/products']">Productos</a>
               </li>
-              <li class="breadcrumb-item"><a>Edición de producto</a></li>
+              <li class="breadcrumb-item"><a>Registrar compra</a></li>
             </ol>
           </nav>
         </div>
@@ -76,9 +76,9 @@
                           type="text"
                           class="form-control"
                           placeholder="Ingrese el nombre"
-                          #nombre="ngModel"
-                          name="nombre"
-                          [(ngModel)]="product.nombre"
+                          #titulo="ngModel"
+                          name="titulo"
+                          [(ngModel)]="product.titulo"
                           required
                         />
                       </div>
@@ -93,20 +93,6 @@
                           #descripcion="ngModel"
                           name="descripcion"
                           [(ngModel)]="product.descripcion"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label class="form-label">Marca</label>
-                        <input
-                          type="string"
-                          class="form-control"
-                          placeholder="Ingrese marca"
-                          #precio_venta="ngModel"
-                          name="marca"
-                          [(ngModel)]="product.marca"
                           required
                         />
                       </div>
@@ -155,6 +141,27 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-label">Marca</label>
+                        <select
+                          class="form-control"
+                          #nombre="ngModel"
+                          required
+                          name="marca"
+                          [(ngModel)]="product.marca"
+                        >
+                          <option value="" disabled>SELECCIONAR</option>
+                          <option
+                            value="{{ item._id }}"
+                            *ngFor="let item of marcas"
+                          >
+                            {{ item.nombre }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-label">Categoria</label>

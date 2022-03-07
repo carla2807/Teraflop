@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.identity) {
-      this._router.navigate(['products']);
+      this._router.navigate(['ventas']);
     }
   }
   close_alert() {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
           this._userService.login(this.user, true).subscribe((response) => {
             localStorage.setItem('identity', JSON.stringify(response.user));
-            this._router.navigate(['products']);
+            this._router.navigate(['ventas']);
           });
         },
         (error) => {

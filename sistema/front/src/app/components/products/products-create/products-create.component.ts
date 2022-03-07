@@ -16,6 +16,7 @@ export class ProductsCreateComponent implements OnInit {
   public imgSelect: String | ArrayBuffer | null;
   public categorias: any;
   public proveedores: any;
+  public marcas: any;
   public success_message: any;
   public error_message: any;
 
@@ -23,7 +24,7 @@ export class ProductsCreateComponent implements OnInit {
     this.product = new Product('', '', '', '', '', '', 1, 1, '', '');
   }
 
-  //Para mostrar lista categorias y proveedores registrados
+  //Para mostrar lista marcas categorias proveedores registrados
   ngOnInit(): void {
     this._productService.get_categorias().subscribe(
       (response) => {
@@ -43,6 +44,16 @@ export class ProductsCreateComponent implements OnInit {
         console.log(error);
       }
     );
+
+    this._productService.get_marcas().subscribe(
+      (response) => {
+        this.marcas = response.marcas;
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   success_alert() {
@@ -55,7 +66,7 @@ export class ProductsCreateComponent implements OnInit {
     if (productoForm.valid) {
       this._productService
         .insert_producto({
-          nombre: productoForm.value.nombre,
+          titulo: productoForm.value.titulo,
           descripcion: productoForm.value.descripcion,
           imagen: this.file,
           marca: productoForm.value.marca,

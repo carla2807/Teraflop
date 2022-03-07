@@ -16,11 +16,19 @@ export class ProductsIndexComponent implements OnInit {
   public filtroText: any;
   public categorias: any;
   public proveedores: any;
+  public marcas: any;
   public nombre_catText: any;
   public descripcion_catText: any;
   public nombre_provText: any;
   public direccion_provText: any;
+  public nombre_marcaText: any;
   public p: any;
+  public idx: any;
+  public producto_stock: any;
+  public producto_stockText: any;
+  public producto_id: any;
+  public item: any;
+  public success_message: any;
 
   constructor(private _productService: ProductService) {
     this.url = Global.url;
@@ -45,6 +53,12 @@ export class ProductsIndexComponent implements OnInit {
     this._productService.get_proveedores().subscribe(
       (response) => {
         this.proveedores = response.providers;
+      },
+      (error) => {}
+    );
+    this._productService.get_marcas().subscribe(
+      (response) => {
+        this.marcas = response.marcas;
       },
       (error) => {}
     );
@@ -82,7 +96,6 @@ export class ProductsIndexComponent implements OnInit {
     }
   }
   //Metodo guardar e insertar proveedor
-
   save_prov(proveedorForm: any) {
     if (proveedorForm.valid) {
       this._productService
@@ -96,6 +109,27 @@ export class ProductsIndexComponent implements OnInit {
               (response) => {
                 this.proveedores = response.providers;
                 $('#modal-save-proveedor').modal('hide');
+              },
+              (error) => {}
+            );
+          },
+          (error) => {}
+        );
+    }
+  }
+  //Metodo guardar e insertar marca
+  save_marca(marcaForm: any) {
+    if (marcaForm.valid) {
+      this._productService
+        .insert_marca({
+          nombre: marcaForm.value.nombre_marca,
+        })
+        .subscribe(
+          (response) => {
+            this._productService.get_marcas().subscribe(
+              (response) => {
+                this.marcas = response.marcas;
+                $('#modal-save-marca').modal('hide');
               },
               (error) => {}
             );
@@ -140,5 +174,40 @@ export class ProductsIndexComponent implements OnInit {
         Swal.fire('Cancelado', 'Se cancelo la solicitud :)', 'error');
       }
     });
+  }
+
+  get_id(id: any) {
+    this.producto_id = id;
+  }
+  close_alert() {
+    this.success_message = '';
+  }
+
+  //Metodo aumentar stock
+  aumentar_stock(stockForm: any) {
+    if (stockForm.valid) {
+      if (this.producto_id) {
+        this._productService
+          .stock_producto({
+            _id: this.producto_id,
+            stock: stockForm.value.producto_stock,
+          })
+          .subscribe(
+            (response) => {
+              this.success_message = 'Se aumento el stock correctamente';
+              this._productService.get_productos('').subscribe(
+                (response) => {
+                  this.products = response.productos;
+                  $('.modal').modal('hide');
+                },
+                (error) => {}
+              );
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+      }
+    }
   }
 }
