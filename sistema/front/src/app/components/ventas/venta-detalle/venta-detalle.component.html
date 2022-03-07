@@ -1,0 +1,151 @@
+<div class="wrapper">
+  <app-sidebar style="background: white !important"></app-sidebar>>
+  <div class="main">
+    <main class="content">
+      <div class="container-fluid">
+        <div class="header">
+          <h1 class="header-title">VENTAS</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['/dashboard']">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item"><a>Detalle de venta</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-xl-12 form-group">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Detalle de venta</h5>
+                <a [routerLink]="['/cliente/registrar']" class="btn btn-primary"
+                  >Registrar cliente</a
+                >
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  style="margin: 10px"
+                  value="Convert"
+                  (click)="convertToPDF()"
+                >
+                  Generar factura
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-12" id="factura">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Datos de venta</h5>
+              </div>
+              <!--Cliente-->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-3 form-group">
+                    <label><b>Cliente</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.client.nombre }}  {{
+                        venta.client.apellido
+                      }}"
+                    />
+                  </div>
+                  <div class="col-3 form-group">
+                    <label><b>Email</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.client.email }}  {{
+                        venta.client.apellido
+                      }}"
+                    />
+                  </div>
+                  <div class="col-3 form-group">
+                    <label><b>Fecha</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.fecha | date: 'MMM d, y, h:mm:ss a' }}  "
+                    />
+                  </div>
+                  <div class="col-3">
+                    <label><b>N° venta</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta._id }}  "
+                    />
+                  </div>
+
+                  <div class="col-3 form-group">
+                    <label><b>Vendedor</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.user.nombre }}  {{ venta.user.apellido }}"
+                    />
+                  </div>
+                  <div class="col-3 form-group">
+                    <label><b>Email</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.user.email }} 
+                    "
+                    />
+                  </div>
+                  <div class="col-3 form-group">
+                    <label><b>Rol</b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      readonly
+                      value="{{ venta.user.role }}  "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Detalles de venta</h5>
+                </div>
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Producto</th>
+                      <th class="text-center">Precio Venta</th>
+                      <th class="text-center">Cantidad</th>
+                      <th class="text-center">Importe</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of detalle_venta">
+                    <td class="text-center">{{ item.idproducto.titulo }}</td>
+                    <td class="text-center">${{ item.idproducto.precio }}</td>
+                    <td class="text-center">{{ item.cantidad }}</td>
+                    <td class="text-center">
+                      ${{ item.idproducto.precio * item.cantidad }}
+                    </td>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
