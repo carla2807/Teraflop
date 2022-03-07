@@ -21,8 +21,13 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-lg-6">
-                    <a class="btn btn-primary">Registrar venta</a>
-                    <h1 class="header-title">Clientes</h1>
+                    <a
+                      [routerLink]="['/venta/registrar']"
+                      class="btn btn-primary"
+                      >Registrar venta</a
+                    >
+
+                    <h1 class="header-title">Ventas realizadas</h1>
                   </div>
                 </div>
               </div>
@@ -33,8 +38,10 @@
                     <th>Apellido</th>
 
                     <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Vendedor</th>
                     <th>Numero venta</th>
-                    <th>Detalle</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let item of ventas">
@@ -48,6 +55,10 @@
                   <td>
                     {{ item.fecha | date: 'MMM d, y, h:mm:ss a' }}
                   </td>
+                  <td>
+                    {{ item.estado }}
+                  </td>
+                  <td>{{ item.user.nombre }} {{ item.user.apellido }}</td>
                   <td>
                     {{ item._id }}
                   </td>
@@ -65,8 +76,17 @@
                       <div class="dropdown-menu">
                         <a
                           class="dropdown-item"
-                          [routerLink]="['/ventas/', item._id]"
+                          [routerLink]="['/venta/', item._id]"
                           >Detalle de venta</a
+                        >
+                        <a
+                          class="dropdown-item"
+                          (click)="avanzarEstado(item)"
+                          *ngIf="item.estado != 'Recibido'"
+                          >Avanzar Estado</a
+                        >
+                        <a class="dropdown-item" (click)="eliminar(item._id)"
+                          >Eliminar pedido</a
                         >
                       </div>
                     </div>
