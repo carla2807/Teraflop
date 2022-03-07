@@ -11,13 +11,13 @@ function registrar(req, res) {
     const imagen_name = name[2];
 
     const product = new Product();
-    product.nombre = data.nombre;
+    product.titulo = data.titulo;
     product.imagen = imagen_name;
     product.descripcion = data.descripcion;
-    product.marca = data.marca;
     product.modelo = data.modelo;
     product.precio = data.precio;
     product.stock = data.stock;
+    product.marca = data.marca;
     product.nitproveedor = data.nitproveedor;
     product.nitcategoria = data.nitcategoria;
 
@@ -32,13 +32,13 @@ function registrar(req, res) {
     });
   } else {
     const product = new Product();
-    product.nombre = data.nombre;
+    product.titulo = data.titulo;
     product.imagen = null;
     product.descripcion = data.descripcion;
-    product.marca = data.marca;
     product.modelo = data.modelo;
     product.precio = data.precio;
     product.stock = data.stock;
+    product.marca = data.marca;
     product.nitproveedor = data.nitproveedor;
     product.nitcategoria = data.nitcategoria;
 
@@ -69,12 +69,14 @@ function obtener_producto(req, res) {
   });
 }
 
-//Metodo listar
+//Metodo listar,populate permite relacionar las tablas
 function listar_producto(req, res) {
-  const nombre = req.params['nombre'];
+  const titulo = req.params['titulo'];
 
-  Product.find({ nombre: new RegExp(nombre, 'i') })
+  Product.find({ titulo: new RegExp(titulo, 'i') })
+    .populate('marca')
     .populate('nitcategoria')
+    .populate('nitproveedor')
     .exec((err, product_list) => {
       if (err) {
         res.status(500).send({ message: 'Error en el servidor' });
@@ -94,7 +96,7 @@ function editar_producto(req, res) {
   var img = req.params['img'];
   const data = req.body;
 
-  if (img || img != null || img != undefined) {
+  if (req.files.imagen) {
     if (img || img != null || img != undefined) {
       fs.unlink('./uploads/productos/' + img, (err) => {
         if (err) throw err;
@@ -108,13 +110,12 @@ function editar_producto(req, res) {
     Product.findByIdAndUpdate(
       { _id: id },
       {
-        nombre: data.nombre,
+        titulo: data.titulo,
         imagen: imagen_name,
         descripcion: data.descripcion,
-        marca: data.marca,
         modelo: data.modelo,
         precio: data.precio,
-        stock: data.stock,
+        marca: data.marca,
         nitproveedor: data.nitproveedor,
         nitcategoria: data.nitcategoria,
       },
@@ -127,6 +128,30 @@ function editar_producto(req, res) {
           res
             .status(403)
             .send({ message: 'El producto no se pudo actualizar' });
+        }
+      }
+    );
+  } else {
+    Product.findByIdAndUpdate(
+      { _id: id },
+      {
+        titulo: data.titulo,
+        descripcion: data.descripcion,
+        modelo: data.modelo,
+        precio: data.precio,
+        marca: data.marca,
+        nitcategoria: data.nitcategoria,
+        nitproveedor: data.nitproveedor,
+      },
+      (err, producto_edit) => {
+        if (err) {
+          res.status(500).send({ message: 'Error en el servidor' });
+        } else {
+          if (producto_edit) {
+            res.status(200).send({ producto: producto_edit });
+          } else {
+            res.status(403).send({ message: 'No se edito el producto' });
+          }
         }
       }
     );

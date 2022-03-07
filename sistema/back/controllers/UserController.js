@@ -155,11 +155,23 @@ function editar(req, res) {
     );
   }
 }
+//Metodo eliminar
+function eliminar(req, res) {
+  const id = req.params['id'];
+  User.findByIdAndRemove(id, (err, user_delete) => {
+    if (user_delete) {
+      res.status(200).send({ client: user_delete });
+    } else {
+      res.status(500).send(err);
+    }
+  });
+}
 
 module.exports = {
   registrar,
   login,
   listar,
   editar,
+  eliminar,
   get_usuario,
 };
